@@ -37,13 +37,11 @@ class LandUnit():
         self.adjacentBottomLeft = [i + 1, j - 1]
         self.adjacentBottomRight = [i + 1, j + 1]
         self.neighborSquares = [self.adjacentTop, self.adjacentBottom, self.adjacentLeft, self.adjacentRight, self.adjacentTopLeft, self.adjacentTopRight, self.adjacentBottomLeft, self.adjacentBottomRight]
-        self.newNeighborSquares = [self.adjacentBottom, self.adjacentRight, self.adjacentBottomLeft, self.adjacentBottomRight]
-
-        self.island = 0
+        self.island = None
 
     def showAdjacentUnit(self) :
         print "I am square: [%s, %s]" %(self.i, self.j)
-        print "These are my newNeighborSquares : %s " %(self.newNeighborSquares)
+        print "These are my neighborSquares : %s " %(self.neighborSquares)
         # print "This is my adjacentTop : %s " %(self.adjacentTop)
         # print "This is my adjacentBottom : %s " %(self.adjacentBottom)
         # print "This is my adjacentLeft : %s " %(self.adjacentLeft)
@@ -51,13 +49,11 @@ class LandUnit():
 
     def formIslands(self, landUnits):
         for landUnit in landUnits:
-            for newNeighbor in self.newNeighborSquares:
-                if landUnit.address == newNeighbor:
-                    print "%s : %s is equal to %s" %(True, str(landUnit.address), newNeighbor)
-
+            for neighborSquare in self.neighborSquares:
+                if landUnit.address == neighborSquare:
+                    print "%s : %s is equal to %s" %(True, str(landUnit.address), neighborSquare)
                 else:
-                    pass
-                    # print "%s : %s and %s" %(False, landUnit.address, newNeighbor)
+                    print "%s : %s and %s" %(False, landUnit.address, neighborSquare)
                 
         # check the adjacents against the list of landUnits
         # maybe create the islands here
@@ -78,33 +74,11 @@ def landCoordinateCollector():
     print "This is the list of landUnits : %s" % landUnits
 
 
-def showAdjacent(landUnits):
+def islandMerge(landUnits):
     print "This is all of the landUnits at once, no filter : %s " %(landUnits)
     for landUnit in landUnits:
-        landUnit.showAdjacentUnit()
-
-def formIslands(landUnits, islands):
-    for i in range(len(landUnits)):
-        landUnit = landUnits[i]
-        # landUnit.formIslands(landUnits)        
-        for j in range(len(landUnits)):
-            # for newNeighbor in landUnit.neighborSquares:
-            for k in range(len(landUnit.neighborSquares)):
-                newNeighbor = landUnit.neighborSquares[k]
-                # print "------------------------------------------"
-                print "%s and %s" %(str(landUnit.address), newNeighbor)
-                # print newNeighbor
-                # print landUnit.address
-
-                if str(landUnit.address) == str(newNeighbor):
-                    print "%s : %s is equal to %s" %(True, str(landUnit.address), newNeighbor)
-                    
-                else:
-                    pass
-                    # print "%s : %s and %s" %(False, landUnit.address, newNeighbor)
-
+        # landUnit.showAdjacentUnit()
+        landUnit.formIslands(landUnits)        
 
 landCoordinateCollector()
-# showAdjacent(landUnits)
-formIslands(landUnits, islands)
-
+islandMerge(landUnits)
