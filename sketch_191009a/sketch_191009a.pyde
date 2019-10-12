@@ -5,6 +5,9 @@
 # https://www.geeksforgeeks.org/find-number-of-islands/
 # https://www.reddit.com/r/csinterviewproblems/comments/3xdmp6/count_number_of_islands/
 
+# I know each landUnit and their adjacent squares. 
+# Now I just need to find out when others are in their adjacent squares
+
 binaryMap = [[0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
              [0, 1, 1, 1, 1, 0, 0, 1, 1, 0],
              [0, 0, 1, 1, 1, 1, 0, 0, 1, 1],
@@ -34,6 +37,7 @@ class LandUnit():
         self.adjacentBottomRight = [i + 1, j + 1]
         self.neighbors = [self.adjacentTop, self.adjacentBottom, self.adjacentLeft, self.adjacentRight, self.adjacentTopLeft, self.adjacentTopRight, self.adjacentBottomLeft, self.adjacentBottomRight]
 
+
     def showAdjacentUnit(self) :
         print "I am square: [%s, %s]" %(self.i, self.j)
         print "These are my neighbors : %s " %(self.neighbors)
@@ -41,6 +45,9 @@ class LandUnit():
         # print "This is my adjacentBottom : %s " %(self.adjacentBottom)
         # print "This is my adjacentLeft : %s " %(self.adjacentLeft)
         # print "This is my adjacentRight : %s " %(self.adjacentRight)
+
+        # check the adjacents against the list of landUnits
+        # maybe create the islands here
 
 def landCoordinateCollector():
     global landCount, landUnits
