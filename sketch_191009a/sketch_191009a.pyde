@@ -87,17 +87,15 @@ def formIslands(landUnits, islands):
     for i in range(len(landUnits)):
         landUnit = landUnits[i]
         # landUnit.formIslands(landUnits)        
-        for j in range(len(landUnits)):
-            # for newNeighbor in landUnit.neighborSquares:
-            for k in range(len(landUnit.neighborSquares)):
-                newNeighbor = landUnit.neighborSquares[k]
-                # print "------------------------------------------"
-                print "%s and %s" %(str(landUnit.address), newNeighbor)
-                # print newNeighbor
-                # print landUnit.address
-
-                if str(landUnit.address) == str(newNeighbor):
-                    print "%s : %s is equal to %s" %(True, str(landUnit.address), newNeighbor)
+        for j in range(len(landUnit.neighborSquares)):
+            newNeighborSquare = landUnit.neighborSquares[j]
+            # print "------------------------------------------"
+            # print "%s and %s" %(str(landUnit.address), newNeighborSquare)
+            
+            for k in range(i+1,len(landUnits)):
+                possibleNeighbor = landUnits[k]
+                if str(possibleNeighbor.address) == str(newNeighborSquare):
+                    print "%s : %s is equal to %s" %(True, str(possibleNeighbor.address), newNeighborSquare)
                     
                 else:
                     pass
