@@ -19,7 +19,7 @@ binaryMap = [[0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
 # numberOfIslands = 0
 landCount = 0
 landUnits = []
-islands = []
+islands = [[]]
 
 
 class LandUnit():
@@ -38,6 +38,7 @@ class LandUnit():
         self.adjacentBottomRight = [i + 1, j + 1]
         self.neighborSquares = [self.adjacentTop, self.adjacentBottom, self.adjacentLeft, self.adjacentRight, self.adjacentTopLeft, self.adjacentTopRight, self.adjacentBottomLeft, self.adjacentBottomRight]
         self.newNeighborSquares = [self.adjacentBottom, self.adjacentRight, self.adjacentBottomLeft, self.adjacentBottomRight]
+        self.neighbors = []
 
         self.island = 0
 
@@ -49,15 +50,15 @@ class LandUnit():
         # print "This is my adjacentLeft : %s " %(self.adjacentLeft)
         # print "This is my adjacentRight : %s " %(self.adjacentRight)
 
-    def formIslands(self, landUnits):
-        for landUnit in landUnits:
-            for newNeighbor in self.newNeighborSquares:
-                if landUnit.address == newNeighbor:
-                    print "%s : %s is equal to %s" %(True, str(landUnit.address), newNeighbor)
+    # def formIslands(self, landUnits):
+    #     for landUnit in landUnits:
+    #         for newNeighbor in self.newNeighborSquares:
+    #             if landUnit.address == newNeighbor:
+    #                 print "%s : %s is equal to %s" %(True, str(landUnit.address), newNeighbor)
 
-                else:
-                    pass
-                    # print "%s : %s and %s" %(False, landUnit.address, newNeighbor)
+    #             else:
+    #                 pass
+    #                 # print "%s : %s and %s" %(False, landUnit.address, newNeighbor)
                 
         # check the adjacents against the list of landUnits
         # maybe create the islands here
@@ -86,17 +87,32 @@ def showAdjacent(landUnits):
 def formIslands(landUnits, islands):
     for i in range(len(landUnits)):
         landUnit = landUnits[i]
-        # landUnit.formIslands(landUnits)        
+
+        # for j in range(len(landUnit.neighborSquares)):
+
+        # landUnit.formIslands(landUnits) 
+        # if len(islands) == 0:
+        #     islands.append([landUnit.address])
+        #     print "this is islands: %s" %(islands)
+        
+        # matchingNeigbors = [j for j in landUnits + landUnit.newNeighborSquares if j in landUnits and j in landUnit.newNeighborSquares]
+        #         print "These are my matchingNeigbors : %s" %(matchingNeigbors)
+        # matchingNeigbors =
+
+
         for j in range(len(landUnit.neighborSquares)):
             newNeighborSquare = landUnit.neighborSquares[j]
+
             # print "------------------------------------------"
             # print "%s and %s" %(str(landUnit.address), newNeighborSquare)
             
             for k in range(i+1,len(landUnits)):
                 possibleNeighbor = landUnits[k]
                 if str(possibleNeighbor.address) == str(newNeighborSquare):
-                    print "%s : %s is equal to %s" %(True, str(possibleNeighbor.address), newNeighborSquare)
-                    
+                    print "I am landUnit: %s" %(landUnit.address)
+                    print "%s : possibleNeighbor:%s is equal to newNeighborSquare:%s" %(True, str(possibleNeighbor.address), newNeighborSquare)
+                    landUnit.neighbors.append(possibleNeighbor.address)
+
                 else:
                     pass
                     # print "%s : %s and %s" %(False, landUnit.address, newNeighbor)
