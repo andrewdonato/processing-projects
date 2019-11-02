@@ -7,7 +7,7 @@
 
 
 bigMap = [[0, 0, 1, 0, 0, 1, 0, 0, 0, 1],
-          [1, 0, 1, 1, 1, 0, 0, 0, 1, 0],
+          [1, 0, 1, 1, 1, 0, 0, 0, 0, 0],
           [0, 1, 1, 0, 1, 0, 0, 1, 1, 0],
           [0, 0, 1, 1, 1, 1, 0, 0, 1, 1],
           [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -95,6 +95,7 @@ def formIslands(landUnits):
         landUnit = landUnits[i]        
         # print landUnit.visited
         if landUnit.lookedForNeighbors == False:
+        # if True:
             findNeighbor(landUnit)
             islandCount += 1
 
@@ -108,7 +109,7 @@ def findNeighbor(landUnit):
     print "this is %s and I've traveled %s" %(landUnit.address, timesTraveled)
     print "I have lookedForNeighbors : %s" %(landUnit.lookedForNeighbors)
         
-    if landUnit.lookedForNeighbors == False:
+    if landUnit.lookedForNeighbors == False:    
         landUnit.lookedForNeighbors = True
 
         for i in range(len(landUnit.adjacentSquares)):
