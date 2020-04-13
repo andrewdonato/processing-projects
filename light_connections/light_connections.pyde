@@ -1,14 +1,17 @@
 # lightPoints = ["a","b","c","d","e","f"]
 lightPoints = []
+# redSeed = int(random(255))
+# greenSeed = int(random(255))
+# blueSeed = int(random(255))
 
 def setup():
-    size (1400, 700)
+    size (700, 700)
     background (0)
     cellStroke = 0
     stroke(255)
     
     randomPoints()
-    
+
         
 def draw():
     background(0)
@@ -17,26 +20,30 @@ def draw():
     point(mouseX,mouseY)
     for i in range(len(lightPoints)):
         beginLine = lightPoints[i] 
-        
-        ## cursor point and lines to cursor
+                
+        ## draw a dot for each point in lightPoints
         strokeWeight(2)
         point(beginLine[0], beginLine[1])
-        strokeWeight(0)
+            
+        ## draws lines to mouse cursor
+        strokeWeight(1)
         line(mouseX, mouseY, beginLine[0], beginLine[1])
         
         ## create lines from each point to every other point
         for j in range(i, len(lightPoints)):
-            # stroke(int(random(255))
-            strokeWeight(0)
+            # strokeWeight(0)
             completeLine = lightPoints[j]
-            
-            # randomSeed(100)
-            # stroke(int(random(255)), int(random(255)), int(random(255)))
+            ## line color
+            stroke((completeLine[2]+beginLine[2])/2,(completeLine[3]+beginLine[3])/2, (completeLine[4]+beginLine[4])/2)
             
             line(beginLine[0], beginLine[1], completeLine[0], completeLine[1])
         
 def mouseClicked():
-    lightPoints.append([mouseX, mouseY])
+    r = int(random(255))
+    g = int(random(255))
+    b = int(random(255))
+    # print r,g,b
+    lightPoints.append([mouseX, mouseY, r,g,b])
     
 def randomPoints():
     ## seed max       1234567890123456
@@ -55,10 +62,14 @@ def randomPoints():
     # randomSeed(542971678162944)
     # randomSeed(2816)
     
-    for i in range(0, 15):
+    for i in range(0, 5):
         x = int(random(width))
         y = int(random(height))
-        lightPoints.append([x,y])
+        r = int(random(255))
+        g = int(random(255))
+        b = int(random(255))
+        # lightPoints.append([x,y)
+        lightPoints.append([x,y,r,g,b])
         
 
 def keyPressed():
