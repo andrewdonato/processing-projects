@@ -1,10 +1,16 @@
 import math
 
+depthRange=[]
+
 def setup():
-    size(500,500, P3D)
-    
+    global depthRange
+    # size(500,500, P3D)
+    size(700,700, P3D)
+    # size(800,800, P3D)
+    depthRange = [-(height*.8),(height*.8)]
     
 def draw():
+    global depthRange
     print (mouseX, mouseY)
     background(255)
     # stroke(255,0,0)    
@@ -23,14 +29,20 @@ def draw():
                     line(x, y, z, x, y, height)
                     fill(0)
                     
-    
+    totalDepthRange = abs(depthRange[0]-depthRange[1])
+    # sphereMouseRatio = float(totalDepthRange/height)
+    sphereMouseRatio = float(totalDepthRange*100/height)
+    # print float (sphereMouseRatio/100)
+    print totalDepthRange
+    print sphereMouseRatio
     if mouseX > 0 and mouseY > 0 : 
         
-        translate(width/2,height/2,-400 + mouseY*1.6)
+        translate(width/2,height/2, depthRange[0] + mouseY*sphereMouseRatio/100)
+        # translate(width/2,height/2, depthRange[0] + mouseY*1.6)
         # translate(width/2,height/2,-400 + mouseHypotenuse*1.13)
         
     else:
-        translate(width/2,height/2, -400)
+        translate(width/2,height/2, depthRange[0])
     stroke(0)
     sphere(height/10)
 
