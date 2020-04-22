@@ -10,6 +10,7 @@ def setup():
     depthRange = [-(height*.8),(height*.8)]
     
 def draw():
+    moveCamera()
     global depthRange
     print (mouseX, mouseY)
     background(255)
@@ -47,6 +48,18 @@ def draw():
     sphere(height/10)
 
     popMatrix()
+
+def moveCamera():
+    # camera(width/2.0, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0)
+    cameraAngle = (width/2.0, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0)
+    if key == CODED:
+        if keyCode == LEFT:
+            cameraAngle = (width/2.0, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, -0.5, 1.0, 0)
+        elif keyCode == RIGHT:
+            cameraAngle = (width/2.0, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0.5, 1, 0)    
+    camera(*cameraAngle)
+    
+
 
 
 
