@@ -25,7 +25,7 @@ def draw():
     
     # draw buildings
     strokeWeight(5)
-    drawBuildings()
+    drawBuildings(middleStreet()[0], middleStreet()[1])
     
     camera(3*mouseX - width , 3*mouseY - height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
 
@@ -54,13 +54,10 @@ def middleStreet():
 def createBuildings(leftSide, rightSide):
     global buildings
     strokeWeight(5)
-
     boxX = 50
     boxY = 100
     boxZ = 500
     
-    
-    translate(leftSide[0] - boxX/2, -height + boxY/2 , boxZ/2)
     box(boxX, boxY, boxZ)
     
     amount = 10
@@ -70,17 +67,24 @@ def createBuildings(leftSide, rightSide):
         boxX = int(random(500))
         boxY = int(random(500))
         boxZ = int(random(500))
-        
     
         building = [boxX, boxY, boxZ]
         buildings.append(building)    
-        translate(0, boxY + height/100, 0)
+        
         i += 1
         
-def drawBuildings():
+def drawBuildings(leftSide, rightSide):
+    
     for building in buildings:
+        pushMatrix()
+        boxX = building[0]
+        boxY = building[1]
+        boxZ = building[2]
         
+        translate(leftSide[0] - boxX/2, -height + boxY/2 , boxZ/2)
+        translate(0, boxY + height/100, 0)
         box(building[0], building[1], building[2])
+        popMatrix()
         
     
     
