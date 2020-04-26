@@ -3,7 +3,7 @@ buildings = []
 def setup():
     size(2000, 2000, P3D)
     camera(width/2.0, -height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
-    
+    createBuildings(middleStreet()[0], middleStreet()[1])
     
 def draw():
     background(255)
@@ -12,7 +12,7 @@ def draw():
     # camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
     # camera(width/2.0, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0, 0, 1, 0)
     # camera(width/2.0 + 2*mouseX, height/2.0 - 3*mouseY, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
-    camera(3*mouseX - width , 3*mouseY - height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
+    
     
     # draw grid
     strokeWeight(1)
@@ -25,7 +25,9 @@ def draw():
     
     # draw buildings
     strokeWeight(5)
-    createBuildings(middleStreet()[0], middleStreet()[1])
+    drawBuildings()
+    
+    camera(3*mouseX - width , 3*mouseY - height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
 
 
 def showGrid():
@@ -73,8 +75,13 @@ def createBuildings(leftSide, rightSide):
         building = [boxX, boxY, boxZ]
         buildings.append(building)    
         translate(0, boxY + height/100, 0)
-        box(boxX, boxY, boxZ)
         i += 1
+        
+def drawBuildings():
+    for building in buildings:
+        
+        box(building[0], building[1], building[2])
+        
     
     
     
