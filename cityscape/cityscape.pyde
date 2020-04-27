@@ -72,13 +72,13 @@ def createBuildings(lineSegment):
     
     box(boxX, boxY, boxZ)
     
-    amount = 10
+    amount = 15
     i = 0
     while i < amount:
         
-        boxX = int(random(height/10))
-        boxY = int(random(height/10))
-        boxZ = int(random(height/10))
+        boxX = int(random(10, height/10))
+        boxY = int(random(10, height/10))
+        boxZ = int(random(10, height/10))
         # boxX = 50
         # boxY = 100
         # boxZ = 500
@@ -107,16 +107,14 @@ def drawBuildingsOnLeft(leftSide):
         # translate(leftSide[0] - 50/2, 500/2, -height + 100/2 )
         
         # moves buildings along the Z axis down the street
-        # pushMatrix()
-        # popMatrix()
         translate(0, 0, previousBuilding[2]/2+ boxZ/2 + 10 )
         
-        # translate(0, 0, -500)
 
         pushMatrix()
         
         # moves buildings against the street
-        translate(leftSide[0] - boxX/2, 0, 0)
+        translate(leftSide[0] - boxX/2, -boxY/2, 0)
+
         
         # translate(leftSide[0] - boxX/2, boxY/2, -height + boxZ/2 )
         
