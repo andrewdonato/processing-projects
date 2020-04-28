@@ -1,4 +1,5 @@
-buildings = []
+buildings2 = []
+buildings1 = []
 mapTop = 0
 mapBottom = 0
 mapleft = 0
@@ -6,6 +7,7 @@ mapRight = 0
 
 def setup():
     global mapTop, mapBottom, mapleft, mapRight
+    global buildings, buildings1
     size(700, 700, P3D)
     mapTop = -height
     mapBottom = height
@@ -13,9 +15,11 @@ def setup():
     mapRight = width
     
     camera(width/2.0, -height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
-    createBuildings(middleStreet()[0])
+    createBuildings(middleStreet()[0], buildings2, 15)
+    createBuildings(middleStreet()[0], buildings1, 15)
     
 def draw():
+    global buildings, buildings1
     background(255)
     stroke(0)
 
@@ -30,7 +34,8 @@ def draw():
     
     # draw buildings
     strokeWeight(5)
-    drawBuildingsOnLeft(middleStreet()[0])
+    drawBuildings(middleStreet()[0], buildings1, "left")
+    drawBuildings(middleStreet()[1], buildings2, "right")
 
     # camera
     camera(3*mouseX - width , 2*mouseY - height, 1*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
@@ -63,16 +68,17 @@ def middleStreet():
     # line(*lineRight)
     
     
-def createBuildings(lineSegment):
+def createBuildings(lineSegment, buildingArray=buildings1, amount=15):
     global buildings
     strokeWeight(5)
-    boxX = 50
-    boxY = 100
-    boxZ = 500
+    # boxX = 50
+    # boxY = 100
+    # boxZ = 500
     
-    box(boxX, boxY, boxZ)
+    # box(boxX, boxY, boxZ)
     
-    amount = 15
+    # amount = 15
+
     i = 0
     while i < amount:
         
@@ -84,13 +90,14 @@ def createBuildings(lineSegment):
         # boxZ = 500
     
         building = [boxX, boxY, boxZ]
-        buildings.append(building)    
+        buildingArray.append(building)    
         
         i += 1
         
-def drawBuildingsOnLeft(leftSide):
-    
-    # pushMatrix()
+def drawBuildings(streetLine, buildingArray, side):
+    buildings = buildingArray
+    pushMatrix()
+        
     for i in range(len(buildings)):
         
         if i == 0 :
@@ -103,27 +110,40 @@ def drawBuildingsOnLeft(leftSide):
         boxX = building[0]
         boxY = building[1]
         boxZ = building[2]
-        
-        # translate(leftSide[0] - 50/2, 500/2, -height + 100/2 )
-        
+
+        # pushMatrix()
         # moves buildings along the Z axis down the street
-        translate(0, 0, previousBuilding[2]/2+ boxZ/2 + 10 )
+        translate(0, 0, previousBuilding[2]/2+ boxZ/2 + 5 )
+        # popMatrix()
         
-
-        pushMatrix()
+        if side == "left":
+                        
+            # # moves buildings along the Z axis down the street
+            # translate(0, 0, previousBuilding[2]/2+ boxZ/2 + 5 )
+                
+            pushMatrix()
+            
+            # moves buildings against the street and adjusts height
+            translate(streetLine[0] - boxX/2, -boxY/2, 0)                        
+            
+            # translate(0, boxY + height/100, 0)
+            box(building[0], building[1], building[2])
+            popMatrix()
         
-        # moves buildings against the street
-        translate(leftSide[0] - boxX/2, -boxY/2, 0)
-
         
-        # translate(leftSide[0] - boxX/2, boxY/2, -height + boxZ/2 )
-        
-        
-        # translate(0, boxY + height/100, 0)
-        box(building[0], building[1], building[2])
-        popMatrix()
-        
-
+        if side == "right":
+            # # moves buildings along the Z axis down the street
+            # translate(0, 0, previousBuilding[2]/2+ boxZ/2 + 5 )
+                
+            pushMatrix()
+            
+            # moves buildings against the street and adjusts height
+            translate(streetLine[0] + boxX/2, -boxY/2, 0)                        
+            
+            # translate(0, boxY + height/100, 0)
+            box(building[0], building[1], building[2])
+            popMatrix()
+    popMatrix()
     
     
     
