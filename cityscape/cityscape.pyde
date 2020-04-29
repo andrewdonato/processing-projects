@@ -1,3 +1,5 @@
+import math 
+
 buildings1 = []
 buildings2 = []
 buildings3 = []
@@ -7,21 +9,22 @@ mapTop = 0
 mapBottom = 0
 mapleft = 0
 mapRight = 0
+alleyway = 5
 
 def setup():
     global mapTop, mapBottom, mapleft, mapRight
     # global buildings, buildings1
-    size(700, 700, P3D)
+    size(601, 601, P3D)
     mapTop = -height
     mapBottom = height
     mapleft = 0
     mapRight = width
     
     camera(width/2.0, -height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
-    createBuildings(middleVerticalStreet()[0], "vertical", buildings1, 15)
-    createBuildings(middleVerticalStreet()[0], "vertical", buildings2, 15)
-    createBuildings(middleHorizontalStreet()[0], "horizontal", buildings3, 15)
-    createBuildings(middleHorizontalStreet()[0], "horizontal", buildings4, 15)
+    createBuildings(middleVerticalStreet()[0], "vertical", buildings1, 20)
+    createBuildings(middleVerticalStreet()[0], "vertical", buildings2, 20)
+    createBuildings(middleHorizontalStreet()[0], "horizontal", buildings3, 20)
+    createBuildings(middleHorizontalStreet()[0], "horizontal", buildings4, 20)
     
     
 def draw():
@@ -98,25 +101,40 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
     # box(boxX, boxY, boxZ)
     
     # amount = 15
+    
+    # determine magnitude of line    
+    xAbsolute = abs(lineSegment[0]-lineSegment[3])
+    yAbsolute = abs(lineSegment[1]-lineSegment[4])
+    zAbsolute = abs(lineSegment[2]-lineSegment[5])
+    lineMagnitude = math.sqrt(xAbsolute**2 + yAbsolute**2 + zAbsolute**2)
 
-    print lineSegment
-
-
-    i = 0    
-    while i < amount:
+    print orientation
+    # i = 0
+    buildingMagnitude = 0    
+    # while i < amount:
+    while buildingMagnitude < lineMagnitude :
         
         boxX = int(random(10, height/10))
         boxY = int(random(10, height/10))
         boxZ = int(random(10, height/10))
         # boxX = 50
-        # boxY = 100
-        # boxZ = 500
+        # boxY = 50
+        # boxZ = 50
         
-        building = [boxX, boxY, boxZ]
-        buildingArray.append(building)    
+        if orientation == "horizontal" :
+            buildingMagnitude += boxX + alleyway
+            # buildingMagnitude == boxZ + buildingMagnitude
+        elif orientation == "vertical" :
+            buildingMagnitude += boxZ + alleyway
+            # buildingMagnitude == boxZ + buildingMagnitude
+        # print buildingMagnitude
         
-        i += 1
+        if buildingMagnitude < lineMagnitude :
+            building = [boxX, boxY, boxZ]
+            buildingArray.append(building)    
         
+        # i += 1
+    print len(buildingArray)         
 def drawBuildings(streetLine, buildingArray, side):
     buildings = buildingArray
     pushMatrix()
@@ -138,7 +156,7 @@ def drawBuildings(streetLine, buildingArray, side):
 
         if side == "left" or side == "right":
             # moves buildings along the Z axis down the street
-            translate(0, 0, previousBuilding[2]/2+ boxZ/2 + 5 )
+            translate(0, 0, previousBuilding[2]/2+ boxZ/2 + alleyway )
             # popMatrix()
         
             if side == "left":
@@ -170,7 +188,7 @@ def drawBuildings(streetLine, buildingArray, side):
                 
         elif side == "above" or side == "below":
             # moves buildings along the Z axis down the street
-            translate(previousBuilding[0]/2+ boxX/2 + 5, 0, 0)
+            translate(previousBuilding[0]/2+ boxX/2 + alleyway, 0, 0)
             # popMatrix()
                             
             if side == "above":
