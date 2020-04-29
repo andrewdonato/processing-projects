@@ -10,7 +10,7 @@ mapRight = 0
 
 def setup():
     global mapTop, mapBottom, mapleft, mapRight
-    global buildings, buildings1
+    # global buildings, buildings1
     size(700, 700, P3D)
     mapTop = -height
     mapBottom = height
@@ -18,10 +18,10 @@ def setup():
     mapRight = width
     
     camera(width/2.0, -height, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, 0, 0, 1, 0)
-    createBuildings(middleVerticalStreet()[0], buildings1, 15)
-    createBuildings(middleVerticalStreet()[0], buildings2, 15)
-    createBuildings(middleHorizontalStreet()[0], buildings3, 15)
-    createBuildings(middleHorizontalStreet()[0], buildings4, 15)
+    createBuildings(middleVerticalStreet()[0], "vertical", buildings1, 15)
+    createBuildings(middleVerticalStreet()[0], "vertical", buildings2, 15)
+    createBuildings(middleHorizontalStreet()[0], "horizontal", buildings3, 15)
+    createBuildings(middleHorizontalStreet()[0], "horizontal", buildings4, 15)
     
     
 def draw():
@@ -88,7 +88,7 @@ def middleHorizontalStreet():
     
     return lineUp, lineDown    
     
-def createBuildings(lineSegment, buildingArray=buildings1, amount=15):
+def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=15):
     global buildings
     strokeWeight(5)
     # boxX = 50
@@ -99,7 +99,10 @@ def createBuildings(lineSegment, buildingArray=buildings1, amount=15):
     
     # amount = 15
 
-    i = 0
+    print lineSegment
+
+
+    i = 0    
     while i < amount:
         
         boxX = int(random(10, height/10))
@@ -108,7 +111,7 @@ def createBuildings(lineSegment, buildingArray=buildings1, amount=15):
         # boxX = 50
         # boxY = 100
         # boxZ = 500
-    
+        
         building = [boxX, boxY, boxZ]
         buildingArray.append(building)    
         
