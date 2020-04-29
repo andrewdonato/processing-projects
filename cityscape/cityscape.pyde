@@ -108,7 +108,7 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
     zAbsolute = abs(lineSegment[2]-lineSegment[5])
     lineMagnitude = math.sqrt(xAbsolute**2 + yAbsolute**2 + zAbsolute**2)
 
-    print orientation
+
     # i = 0
     buildingMagnitude = 0    
     # while i < amount:
@@ -133,8 +133,11 @@ def createBuildings(lineSegment, orientation, buildingArray=buildings1, amount=1
             building = [boxX, boxY, boxZ]
             buildingArray.append(building)    
         
-        # i += 1
-    print len(buildingArray)         
+    # make skyscraper
+    skyscraper = len(buildingArray)/2
+    buildingArray[skyscraper][1] = int(random(60, height/2.5))
+    
+                      
 def drawBuildings(streetLine, buildingArray, side):
     buildings = buildingArray
     pushMatrix()
