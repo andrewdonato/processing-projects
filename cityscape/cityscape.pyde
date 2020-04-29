@@ -1,5 +1,8 @@
-buildings2 = []
 buildings1 = []
+buildings2 = []
+buildings3 = []
+buildings4 = []
+
 mapTop = 0
 mapBottom = 0
 mapleft = 0
@@ -41,6 +44,8 @@ def draw():
     strokeWeight(5)
     drawBuildings(middleVerticalStreet()[0], buildings1, "left")
     drawBuildings(middleVerticalStreet()[1], buildings2, "right")
+    drawBuildings(middleHorizontalStreet()[0], buildings3, "above")
+    drawBuildings(middleHorizontalStreet()[1], buildings4, "below")
 
     # camera
     camera(3*mouseX - width , 2*mouseY - height, 1*(height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/10.0, height/2, 0, 1, 0)
@@ -79,7 +84,7 @@ def middleVerticalStreet():
 
 def middleHorizontalStreet():
     lineUp = (0, 0, height/2 - height/40, width, 0, height/2 - height/40)
-    lineDown = ()
+    lineDown = (0, 0, height/2 + height/40, width, 0, height/2 + height/40)
     
     return lineUp, lineDown    
     
@@ -127,7 +132,7 @@ def drawBuildings(streetLine, buildingArray, side):
         boxZ = building[2]
 
         # pushMatrix()
-        
+
         if side == "left" or side == "right":
             # moves buildings along the Z axis down the street
             translate(0, 0, previousBuilding[2]/2+ boxZ/2 + 5 )
@@ -162,14 +167,14 @@ def drawBuildings(streetLine, buildingArray, side):
                 
         elif side == "above" or side == "below":
             # moves buildings along the Z axis down the street
-            translate(0, 0, previousBuilding[2]/2+ boxZ/2 + 5 )
+            translate(previousBuilding[0]/2+ boxX/2 + 5, 0, 0)
             # popMatrix()
                             
             if side == "above":
                 pushMatrix()
                 
                 # moves buildings against the street and adjusts height
-                translate(streetLine[0] + boxX/2, -boxY/2, 0)                        
+                translate(0, -boxY/2, streetLine[2] - boxZ/2)                        
                 
                 # translate(0, boxY + height/100, 0)
                 box(building[0], building[1], building[2])
@@ -179,7 +184,7 @@ def drawBuildings(streetLine, buildingArray, side):
                 pushMatrix()
                 
                 # moves buildings against the street and adjusts height
-                translate(streetLine[0] + boxX/2, -boxY/2, 0)                        
+                translate(0, -boxY/2, streetLine[2] + boxZ/2)                        
                 
                 # translate(0, boxY + height/100, 0)
                 box(building[0], building[1], building[2])
