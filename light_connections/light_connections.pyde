@@ -10,6 +10,7 @@ def setup():
     cellStroke = 0
     stroke(255)
     
+    ## generate random points 
     randomPoints()
 
         
