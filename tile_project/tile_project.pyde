@@ -25,14 +25,16 @@ def placeTiles():
             translate(x, y)
             
             ## rotation
-            flipChance = int(random(0,2))
-            turns = int(random(0, 4))
-            rotation = turns * 90                            
-            rotate(radians(rotation))        
+            flipChance = int(random(0,2))                    
             if flipChance == 1:
                 scale(-1,1);
                 translate(-tileWall,0)   
+
                                              
+                                                                                          
+            turns = int(random(0, 4))
+            rotation = turns * 90                            
+            rotate(radians(rotation))                                                                                                                                                                        
             if rotation == 90:
                 translate(0, -tileWall)
             elif rotation == 180:
@@ -117,4 +119,3 @@ def createTile3(tileWall):
     stroke(0)
     # scale(-1,1)
     # rect(tileWall,tileWall,tileWall,tileWall)
-            
