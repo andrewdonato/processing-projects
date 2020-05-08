@@ -1,6 +1,8 @@
 from tiles import *
 
 tileWall = 100
+speed = 2
+
 def setup():
     size(1201,601)
     background(255)
@@ -8,7 +10,7 @@ def setup():
     
 def draw():
     # noCursor()
-    frameRate(2)
+    frameRate(speed)
     background(255)
     placeTiles()
     
@@ -44,18 +46,19 @@ def placeTiles():
             elif rotation == 270 :
                 translate(-tileWall, 0)                                           
             
-            strokeWeight(3)
+            strokeWeight(1)
             noFill()
             # stroke(200)
             # rect(0,0,tileWall,tileWall)
             stroke(0)
-            createTile6(tileWall)
+            createTile9(tileWall)
                 
             popMatrix()
     
 def keyReleased():
-    global tileWall
+    global tileWall, speed
     # if key == "a" or key == "A" :
+    
     if key == " " :
         background(255)
         placeTiles()
@@ -65,6 +68,16 @@ def keyReleased():
     elif key == "-" or key == "_" :
         if tileWall > 10 :      
             tileWall -= 10
+
+    # if key == "[" or key == "{" :
+    #     if speed > 0:
+    #         speed = 0
+    # elif key == "]" or key == "}" :
+    #     if speed < 60:
+    #         speed = 1
+        
+
+                
         
 
 
