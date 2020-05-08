@@ -4,7 +4,7 @@ def setup():
     background(255)
 
     
-# def draw():
+def draw():
     # noCursor()
     frameRate(1)
     background(255)
@@ -24,14 +24,14 @@ def placeTiles():
             
             translate(x, y)
             
-            ## rotation
+            ## flip
             flipChance = int(random(0,2))                    
             if flipChance == 1:
                 scale(-1,1);
                 translate(-tileWall,0)   
 
                                              
-                                                                                          
+            ## rotation                                                                              
             turns = int(random(0, 4))
             rotation = turns * 90                            
             rotate(radians(rotation))                                                                                                                                                                        
@@ -42,7 +42,12 @@ def placeTiles():
             elif rotation == 270 :
                 translate(-tileWall, 0)                                           
             
-            createTile(tileWall)
+            strokeWeight(3)
+            noFill()
+            # stroke(200)
+            # rect(0,0,tileWall,tileWall)
+            stroke(0)
+            createTile7(tileWall)
                 
             popMatrix()
     
@@ -113,9 +118,133 @@ def createTile2(tileWall):
     
 def createTile3(tileWall):
     noFill()
-    stroke(255,0,0)
-    rect(0,0,tileWall,tileWall)
-    rect(tileWall,tileWall,tileWall,tileWall)
+    stroke(200)
+    # rect(0,0,tileWall,tileWall)
+
+    # line(*tileWall/8, *tileWall/8, *tileWall/8, *tileWall/8)
     stroke(0)
-    # scale(-1,1)
-    # rect(tileWall,tileWall,tileWall,tileWall)
+    ## center line
+    line(4*tileWall/8, 0*tileWall/8, 4*tileWall/8, 8*tileWall/8)
+    
+    ## top left quadrant
+    ## vertical
+    line(1*tileWall/8, 0*tileWall/8, 1*tileWall/8, 2*tileWall/8)
+    line(2*tileWall/8, 0*tileWall/8, 2*tileWall/8, 3*tileWall/8)
+    line(3*tileWall/8, 0*tileWall/8, 3*tileWall/8, 4*tileWall/8)
+    ## horizontal
+    line(0*tileWall/8, 1*tileWall/8, 1*tileWall/8, 1*tileWall/8)
+    line(0*tileWall/8, 2*tileWall/8, 2*tileWall/8, 2*tileWall/8)
+    line(0*tileWall/8, 3*tileWall/8, 3*tileWall/8, 3*tileWall/8)
+    line(0*tileWall/8, 4*tileWall/8, 4*tileWall/8, 4*tileWall/8)
+
+    ## top right quadrant
+    ## vertical
+    line(5*tileWall/8, 0*tileWall/8, 5*tileWall/8, 4*tileWall/8)
+    line(6*tileWall/8, 0*tileWall/8, 6*tileWall/8, 3*tileWall/8)
+    line(7*tileWall/8, 0*tileWall/8, 7*tileWall/8, 2*tileWall/8)
+    line(8*tileWall/8, 0*tileWall/8, 8*tileWall/8, 1*tileWall/8)
+    
+    ## horizontal
+    line(7*tileWall/8, 2*tileWall/8, 8*tileWall/8, 2*tileWall/8)
+    line(6*tileWall/8, 3*tileWall/8, 8*tileWall/8, 3*tileWall/8)
+    line(5*tileWall/8, 4*tileWall/8, 8*tileWall/8, 4*tileWall/8)
+    
+    ## bottom left quadrant
+    ## vertical
+    line(1*tileWall/8, 7*tileWall/8, 1*tileWall/8, 8*tileWall/8)
+    line(2*tileWall/8, 6*tileWall/8, 2*tileWall/8, 8*tileWall/8)
+    line(3*tileWall/8, 5*tileWall/8, 3*tileWall/8, 8*tileWall/8)
+    ## horizontal
+    line(0*tileWall/8, 5*tileWall/8, 3*tileWall/8, 5*tileWall/8)
+    line(0*tileWall/8, 6*tileWall/8, 2*tileWall/8, 6*tileWall/8)
+    line(0*tileWall/8, 7*tileWall/8, 1*tileWall/8, 7*tileWall/8)
+    
+    ## bottom right quadrant
+    ## vertical
+    line(5*tileWall/8, 5*tileWall/8, 5*tileWall/8, 8*tileWall/8)
+    line(6*tileWall/8, 5*tileWall/8, 6*tileWall/8, 7*tileWall/8)
+    ## horizontal
+    line(6*tileWall/8, 5*tileWall/8, 8*tileWall/8, 5*tileWall/8)
+    line(7*tileWall/8, 6*tileWall/8, 8*tileWall/8, 6*tileWall/8)
+    line(6*tileWall/8, 7*tileWall/8, 8*tileWall/8, 7*tileWall/8)
+    
+    
+def createTile4(tileWall):
+    
+    line(4*tileWall/8, 0*tileWall/8, 4*tileWall/8, 4*tileWall/8)
+    line(4*tileWall/8, 4*tileWall/8, 0*tileWall/8, 4*tileWall/8)
+    line(0*tileWall/8, 5*tileWall/8, 2*tileWall/8, 5*tileWall/8)
+    line(2*tileWall/8, 5*tileWall/8, 2*tileWall/8, 8*tileWall/8)
+    line(1*tileWall/8, 6*tileWall/8, 1*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 6*tileWall/8, 1*tileWall/8, 6*tileWall/8)
+    line(0*tileWall/8, 7*tileWall/8, 0*tileWall/8, 8*tileWall/8)
+    line(8*tileWall/8, 5*tileWall/8, 3*tileWall/8, 5*tileWall/8)
+    line(3*tileWall/8, 6*tileWall/8, 8*tileWall/8, 6*tileWall/8)
+    line(5*tileWall/8, 6*tileWall/8, 5*tileWall/8, 8*tileWall/8)
+    line(3*tileWall/8, 7*tileWall/8, 3*tileWall/8, 8*tileWall/8)
+    line(3*tileWall/8, 7*tileWall/8, 4*tileWall/8, 7*tileWall/8)
+    line(4*tileWall/8, 7*tileWall/8, 4*tileWall/8, 8*tileWall/8)
+    line(8*tileWall/8, 7*tileWall/8, 6*tileWall/8, 7*tileWall/8)
+    line(6*tileWall/8, 8*tileWall/8, 7*tileWall/8, 8*tileWall/8)
+    line(5*tileWall/8, 0*tileWall/8, 5*tileWall/8, 2*tileWall/8)
+    line(5*tileWall/8, 2*tileWall/8, 8*tileWall/8, 2*tileWall/8)
+    line(5*tileWall/8, 3*tileWall/8, 5*tileWall/8, 5*tileWall/8)
+    line(5*tileWall/8, 3*tileWall/8, 8*tileWall/8, 3*tileWall/8)
+    line(6*tileWall/8, 4*tileWall/8, 8*tileWall/8, 4*tileWall/8)
+    line(1*tileWall/8, 0*tileWall/8, 1*tileWall/8, 1*tileWall/8)
+    line(1*tileWall/8, 1*tileWall/8, 0*tileWall/8, 1*tileWall/8)
+    line(2*tileWall/8, 0*tileWall/8, 2*tileWall/8, 3*tileWall/8)
+    line(0*tileWall/8, 3*tileWall/8, 2*tileWall/8, 3*tileWall/8)
+    line(0*tileWall/8, 2*tileWall/8, 1*tileWall/8, 2*tileWall/8)
+    line(3*tileWall/8, 3*tileWall/8, 3*tileWall/8, 0*tileWall/8)
+    line(6*tileWall/8, 0*tileWall/8, 8*tileWall/8, 0*tileWall/8)
+    line(8*tileWall/8, 1*tileWall/8, 6*tileWall/8, 1*tileWall/8)
+    
+def createTile5(tileWall):
+    line(8*tileWall/8, 0*tileWall/8, 0*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 0*tileWall/8, 8*tileWall/8, 8*tileWall/8)
+    line(3*tileWall/8, 5*tileWall/8, 8*tileWall/8, 8*tileWall/8)
+    line(7*tileWall/8, 7*tileWall/8, 2*tileWall/8, 6*tileWall/8)
+    line(6*tileWall/8, 6*tileWall/8, 1*tileWall/8, 7*tileWall/8)
+    line(5*tileWall/8, 5*tileWall/8, 0*tileWall/8, 8*tileWall/8)
+    line(8*tileWall/8, 0*tileWall/8, 5*tileWall/8, 5*tileWall/8)
+    line(5*tileWall/8, 3*tileWall/8, 8*tileWall/8, 8*tileWall/8)
+    line(6*tileWall/8, 2*tileWall/8, 7*tileWall/8, 7*tileWall/8)
+    line(7*tileWall/8, 1*tileWall/8, 6*tileWall/8, 6*tileWall/8)
+    line(0*tileWall/8, 0*tileWall/8, 5*tileWall/8, 3*tileWall/8)
+    line(6*tileWall/8, 2*tileWall/8, 1*tileWall/8, 1*tileWall/8)
+    line(7*tileWall/8, 1*tileWall/8, 2*tileWall/8, 2*tileWall/8)
+    line(8*tileWall/8, 0*tileWall/8, 3*tileWall/8, 3*tileWall/8)
+    line(0*tileWall/8, 0*tileWall/8, 3*tileWall/8, 5*tileWall/8)
+    line(1*tileWall/8, 1*tileWall/8, 2*tileWall/8, 6*tileWall/8)
+    line(2*tileWall/8, 2*tileWall/8, 1*tileWall/8, 7*tileWall/8)
+    line(3*tileWall/8, 3*tileWall/8, 0*tileWall/8, 8*tileWall/8)
+
+def createTile6(tileWall):
+    line(0*tileWall/8, 0*tileWall/8, 1*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 1*tileWall/8, 2*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 2*tileWall/8, 3*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 3*tileWall/8, 4*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 4*tileWall/8, 5*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 5*tileWall/8, 6*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 6*tileWall/8, 7*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 7*tileWall/8, 8*tileWall/8, 8*tileWall/8)
+
+def createTile7(tileWall):
+    line(0*tileWall/8, 0*tileWall/8, 1*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 1*tileWall/8, 2*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 2*tileWall/8, 3*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 3*tileWall/8, 4*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 4*tileWall/8, 5*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 5*tileWall/8, 6*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 6*tileWall/8, 7*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 7*tileWall/8, 8*tileWall/8, 8*tileWall/8)
+    line(0*tileWall/8, 0*tileWall/8, 8*tileWall/8, 1*tileWall/8)
+    line(1*tileWall/8, 0*tileWall/8, 8*tileWall/8, 2*tileWall/8)
+    line(2*tileWall/8, 0*tileWall/8, 8*tileWall/8, 3*tileWall/8)
+    line(3*tileWall/8, 0*tileWall/8, 8*tileWall/8, 4*tileWall/8)
+    line(4*tileWall/8, 0*tileWall/8, 8*tileWall/8, 5*tileWall/8)
+    line(5*tileWall/8, 0*tileWall/8, 8*tileWall/8, 6*tileWall/8)
+    line(6*tileWall/8, 0*tileWall/8, 8*tileWall/8, 7*tileWall/8)
+    line(7*tileWall/8, 0*tileWall/8, 8*tileWall/8, 8*tileWall/8)
+    
