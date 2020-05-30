@@ -1,6 +1,6 @@
 from tiles import *
 
-tileWall = 100
+tileWall = 60
 speed = 2
 
 def setup():
