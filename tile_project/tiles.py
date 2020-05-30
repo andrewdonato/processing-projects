@@ -243,4 +243,11 @@ def createTile10(tileWall):
     line(6*tileWall/8, 2*tileWall/8, 6*tileWall/8, 0*tileWall/8)
     line(5*tileWall/8, 1*tileWall/8, 8*tileWall/8, 1*tileWall/8)
     line(5*tileWall/8, 3*tileWall/8, 4*tileWall/8, 4*tileWall/8)
+
+def createTile11(tileWall):
+    line(3*tileWall/8, 1*tileWall/8, 2*tileWall/8, 2*tileWall/8)
+    line(4*tileWall/8, 1*tileWall/8, 2*tileWall/8, 3*tileWall/8)
+    line(5*tileWall/8, 1*tileWall/8, 2*tileWall/8, 4*tileWall/8)
+    line(7*tileWall/8, 0*tileWall/8, 1*tileWall/8, 6*tileWall/8)
+    line(8*tileWall/8, 0*tileWall/8, 0*tileWall/8, 8*tileWall/8)
     

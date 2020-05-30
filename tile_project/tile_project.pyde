@@ -51,7 +51,7 @@ def placeTiles():
             # stroke(200)
             # rect(0,0,tileWall,tileWall)
             stroke(0)
-            createTile9(tileWall)
+            createTile10(tileWall)
                 
             popMatrix()
     
@@ -69,10 +69,15 @@ def keyReleased():
         if tileWall > 10 :      
             tileWall -= 10
 
-    # if key == "[" or key == "{" :
+    if key == "[" or key == "{" :
+        noLoop()
+        
     #     if speed > 0:
     #         speed = 0
-    # elif key == "]" or key == "}" :
+    elif key == "]" or key == "}" :
+        redraw()
+    elif key == "\\" or key == "|" :
+        loop()
     #     if speed < 60:
     #         speed = 1
         
