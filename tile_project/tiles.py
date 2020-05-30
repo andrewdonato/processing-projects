@@ -251,3 +251,98 @@ def createTile11(tileWall):
     line(7*tileWall/8, 0*tileWall/8, 1*tileWall/8, 6*tileWall/8)
     line(8*tileWall/8, 0*tileWall/8, 0*tileWall/8, 8*tileWall/8)
     
+def createTile12(tileWall):
+    stroke(255,0,0)
+    fill(255,0,0)
+    rect(0,0,tileWall/2,tileWall/2)
+    stroke(0,255,0)
+    fill(0,255,0)
+    rect(0, tileWall/2, tileWall/2,tileWall/2)
+    stroke(0,0,255)
+    fill(0,0,255)
+    rect(tileWall/2, 0,tileWall/2,tileWall/2)
+    stroke(255,255,0)
+    fill(255,255,0)
+    rect(tileWall/2, tileWall/2, tileWall/2, tileWall/2)
+    
+
+def createTile13(tileWall):
+    r = int(random(255))
+    g = int(random(255))
+    b = int(random(255))
+    stroke(r,0,0)
+    fill(r,0,0)
+    rect(0,0,tileWall/2,tileWall/2)
+    stroke(0,g,0)
+    fill(0,g,0)
+    rect(0, tileWall/2, tileWall/2,tileWall/2)
+    stroke(0,0,b)
+    fill(0,0,b)
+    rect(tileWall/2, 0,tileWall/2,tileWall/2)
+    stroke(r,g,0)
+    fill(r,g,0)
+    rect(tileWall/2, tileWall/2, tileWall/2, tileWall/2)
+    
+def createTile14(tileWall):    
+    r = int(random(255))
+    g = int(random(255))
+    b = int(random(255))
+    stroke(r,g,b)
+    fill(r,g,b)
+    rect(0,0,tileWall/2,tileWall/2)
+    
+    r = int(random(255))
+    g = int(random(255))
+    b = int(random(255))
+    stroke(r,g,b)
+    fill(r,g,b)
+    rect(0, tileWall/2, tileWall/2,tileWall/2)
+    
+    r = int(random(255))
+    g = int(random(255))
+    b = int(random(255))
+    stroke(r,g,b)
+    fill(r,g,b)
+    rect(tileWall/2, 0,tileWall/2,tileWall/2)
+    
+    r = int(random(255))
+    g = int(random(255))
+    b = int(random(255))
+    stroke(r,g,b)
+    fill(r,g,b)
+    rect(tileWall/2, tileWall/2, tileWall/2, tileWall/2)
+    
+    stroke(255,0,0)
+    noFill()
+    rect(0,0, tileWall, tileWall)
+
+
+def createTile15(tileWall):
+    gray = int(random(255))
+    # print gray
+    stroke(gray)
+    fill(gray)
+    rect(0,0,tileWall/2,tileWall/2)
+    
+    gray = int(random(255))
+    # print gray
+    stroke(gray)
+    fill(gray)
+    rect(0, tileWall/2, tileWall/2,tileWall/2)
+
+    gray = int(random(255))
+    # print gray
+    stroke(gray)
+    fill(gray)
+    rect(tileWall/2, 0,tileWall/2,tileWall/2)
+    
+    gray = int(random(255))
+    # print gray
+    stroke(gray)
+    fill(gray)
+    rect(tileWall/2, tileWall/2, tileWall/2, tileWall/2)
+
+    # print
+    # stroke(255,0,0)
+    # noFill()
+    # rect(0,0, tileWall, tileWall)

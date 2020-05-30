@@ -2,6 +2,7 @@ from tiles import *
 
 tileWall = 60
 speed = 2
+drawTile = createTile15
 
 def setup():
     size(1201,601)
@@ -51,7 +52,7 @@ def placeTiles():
             # stroke(200)
             # rect(0,0,tileWall,tileWall)
             stroke(0)
-            createTile10(tileWall)
+            drawTile(tileWall)
                 
             popMatrix()
     
@@ -59,9 +60,9 @@ def keyReleased():
     global tileWall, speed
     # if key == "a" or key == "A" :
     
-    if key == " " :
-        background(255)
-        placeTiles()
+    # if key == " " :
+    #     background(255)
+    #     placeTiles()
 
     if key == "=" or key == "+" :      
         tileWall += 10
