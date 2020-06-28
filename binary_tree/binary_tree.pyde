@@ -1,7 +1,9 @@
+root = None
 nodeToDraw = None
 maxDepth = None
 root = None
-count = 0            
+count = 0           
+maxDepthNode = None
 
 
 class Node:
@@ -62,113 +64,102 @@ class Node:
         
     def findCoordinates(self, root):        
         self.x = width/2 + self.data - root.data
-        # self.y = height*maxDepth/(self.depth + 1)
         self.y = height/(self.depth+1) - 20
-        # fraction = height/maxDepth    
-        # self.y = height - (self.depth*fraction)
-        # self.y = height-2*10-self.depth*20
-        
+
 
     def drawTreePreorder(self, root):
         self.findCoordinates(root)
-        # rect(x,y,w,h)
         rectWidth = 10
         rectHeight = 10
-        # if self.parent == None:
-        #     fill(0,255,0)
-        # else:
-        #     fill(self.color, 0, 0)
-        # fill(self.color, 0, 0)
-        fill(34, self.color, 34)
 
+        if self.data == maxDepthNode.data:
+            fill(240, self.color, 20)
+        else:        
+            fill(34, self.color, 34)
+        # pushMatrix()
+        # translate(self.x, self.y)
+        # rotate(45)
         rect(self.x, self.y, rectWidth, rectHeight)
+        # popMatrix()
+        # rotate(-45)
         if self.left:
             self.left.drawTreePreorder(root)
         if self.right:
             self.right.drawTreePreorder(root)
         
+        # stroke(205,133,63)
+        stroke(139,69,19)
         if self.parent:
             line(self.parent.x, self.parent.y, self.x, self.y)
 
     
-    # def drawTreePreorder(self, root):
-    #     self.findCoordinates(root)
-    #     # rect(x,y,w,h)
-    #     rectWidth = 10
-    #     rectHeight = 10
-    #     xDifference = self.data - root.data
-    #     yDifference = self.depth
-    #     rect(width/2 + 1 * xDifference, height-2*rectHeight-self.depth*20, rectWidth, rectHeight)
-    #     if self.left:
-    #         self.left.drawTreePreorder(root)
-    #     if self.right:
-    #         self.right.drawTreePreorder(root)
+    
 
-
-def findMaxHeightTopToBottom(node, pDepth, maxDepthNode):    
-    global maxDepth, count
+def findMaxHeightTopToBottom(node, pDepth):    
+    global maxDepth, count, maxDepthNode
     if node == None:
         return
     nDepth = pDepth + 1
     if (nDepth > maxDepth):
         maxDepth = nDepth
-        madDepthNode = node
-    
-    # if  node.parent:
-    #     print "node: %s, parent: %s" %(node.data, node.parent.data)
-    # else:
-    #     print "node: %s, has no parent" %(node.data)
+        maxDepthNode = node
     count = count + 1
-    
-    findMaxHeightTopToBottom(node.left, nDepth, maxDepthNode)
-    findMaxHeightTopToBottom(node.right, nDepth, maxDepthNode)
+    findMaxHeightTopToBottom(node.left, nDepth)
+    findMaxHeightTopToBottom(node.right, nDepth)
                                                         
+def findMaxHeightBottomToTop(node):
+    if node == None:
+        return -1
+    return max(findMaxHeightBottomToTop(node.left), findMaxHeightBottomToTop(node.right)) + 1
+
+def isBalancedBottomToTop(node):
+    if node == None:
+        return 0
+    leftHeight = isBalancedBottomToTop(node.left)
+    rightHeight = isBalancedBottomToTop(node.right)
+    
+    if (leftHeight == -1) or (rightHeight == -1):
+        return -1
+    if abs(leftHeight - rightHeight) > 1:
+        return -1
+    print "self.data : %s, leftHeight : %s , rightHeight : %s" %(node.data, leftHeight, rightHeight)
+    
+    return 1 + max(leftHeight, rightHeight)
+    
+
+
+def createTree(root):
+    randomized = int(random(0, 9999))
+    randomSeed(randomized)
+    # randomSeed(456)
+    # randomSeed(4296)
+    # randomSeed(4747)
+    # randomSeed(1358) #10
+    randomSeed(7427)
+    print "randomSeed(%s)" %(randomized)    
+    
+    # root.insert(90)
+    # root.insert(70)
+    for i in range(0, 200, 5):
+        
+        # root.insert(i, root)
+        root.insert(int(random(0, 200)), root)
+
 
 def setup():
-    global maxDepth, nodeToDraw
-    size(500, 500)        
-    findMaxHeightTopToBottom(root, -1, root)
-    print count
-    # print maxDepth
+    global maxDepth, nodeToDraw, root, count
+    size(500, 500)   
+    root = Node(100, None, 0, 255)     
+    nodeToDraw = root
+    createTree(root)
+    findMaxHeightTopToBottom(root, -1)
+    print "Bottom to Top : %s"    %(findMaxHeightBottomToTop(root))
+    print "isBalanced : %s" %(isBalancedBottomToTop(root))
+    
+    print "count : %s" %(count)
+    print "maxDepth : %s" %(maxDepth)
+    print "maxDepthNode.data: %s" %(maxDepthNode.data)
 
 def draw():
-    # nodeToDraw.drawTreePreorder(root)
-    root.drawTreePreorder(root)
-    # line(width/2, 0, width/2, height)
-    
-    # rect(width/2, height/2, 20, 20)
-    # rect(width/2, height/4, 20, 20)
-    # rect(width/2, height/8, 20, 20)
-    # rect(width/2, height/10, 30, 30)
-    # rect(width/2, height/20, 40, 40)
-
-
-    
-
-
-# root = Node(4, 0)
-# for i in range(0, 8, 1):
-#     root.insert(i)
-randomized = int(random(0, 9999))
-randomSeed(randomized)
-# randomSeed(456)
-# randomSeed(4296)
-# randomSeed(4747)
-print "randomSeed(%s)" %(randomized)
-
-root = Node(100, None, 0, 255)
-
-for i in range(0, 200, 5):
-    # root.insert(i, root)
-    root.insert(int(random(0, 200)), root)
-
-
-
-# print "This is root: %s" %(root.data)
-# print "printTreeInorder:"
-# root.printTreeInorder()
-# print "printTreePreorder:"
-# root.printTreePreorder()
-# print "printTreePostorder:"
-# root.printTreePostorder()
-# nodeToDraw = root
+    background(0)
+    nodeToDraw.drawTreePreorder(root)
