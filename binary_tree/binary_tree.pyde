@@ -4,6 +4,10 @@ maxDepth = None
 root = None
 count = 0           
 maxDepthNode = None
+inorder = []
+preorder = []
+postorder = []
+
 nodes = {}
 seedValue = 100
 nodeFrequency = 5 #lower is more
@@ -57,28 +61,33 @@ class Node:
             self.data = data
     
     def printTreeInorder(self):
+        global inorder
         if self.left:
             self.left.printTreeInorder()
         # print(self.data)
-        print "data: %s, depth: %s" %(self.data, self.depth)
+        # print "data: %s, depth: %s" %(self.data, self.depth)
+        inorder.append(self.data)
         if self.right:
             self.right.printTreeInorder()
     
     def printTreePreorder(self):
-       # print(self.data)        
-       print "data: %s, depth: %s" %(self.data, self.depth)
-       if self.left:
-           self.left.printTreePreorder()
-       if self.right:
-           self.right.printTreePreorder()
-    
+        global preorder
+        # print(self.data)        
+        # print "data: %s, depth: %s" %(self.data, self.depth)
+        preorder.append(self.data)
+        if self.left:
+            self.left.printTreePreorder()
+        if self.right:
+            self.right.printTreePreorder()
+        
     def printTreePostorder(self):
+        global postorder
         if self.left:
             self.left.printTreePostorder()
         if self.right:
             self.right.printTreePostorder()
-        # print(self.data)
-        print "data: %s, depth: %s" %(self.data, self.depth)
+        # print "data: %s, depth: %s" %(self.data, self.depth)
+        postorder.append(self.data)
         
     def findCoordinates(self, root):        
         self.x = width/2 + self.data - root.data
@@ -206,21 +215,39 @@ def findLowestCommonAncestorWithParent(nodeAKey, nodeBKey):
         x = bNode
         y = aNode
     
+    # raise the lower node
     for i in range(0, abs(aDepth - bDepth)):
         x = x.parent
     
+    # raise both until they meet
     while x != y:
         x = x.parent
         y = y.parent
     
     return x.data
     
-def findLowestCommonAncestorWithoutParent(nodeAKey, nodeBKey):
-    nodeA = nodes[nodeAKey]
-    nodeB = nodes[nodeBKey]
+def findLowestCommonAncestorWithoutParent(rootNode, aNode, bNode):
+    if rootNode == None:
+        # print "LCAWithoutParent : rootNode == None : return None : %s, %s, %s" %(rootNode, aNode.data, bNode.data)
+        return None
     
+    if (rootNode == aNode) or (rootNode == bNode):
+        # print "LCAWithoutParent : rootNode == aNode or rootNode == bNode : return rootNode : %s, %s, %s" %(rootNode.data, aNode.data, bNode.data)
+        return rootNode
+    
+    leftLCA = findLowestCommonAncestorWithoutParent(rootNode.left, aNode, bNode)
+    rightLCA = findLowestCommonAncestorWithoutParent(rootNode.right, aNode, bNode)
+    
+    if (leftLCA != None) and (rightLCA != None):
+        # print "LCAWithoutParent : leftLCA != None and rightLCA == None : return rootNode : %s, %s, %s" %(rootNode.data, aNode.data, bNode.data)
+        return rootNode
 
-
+    if leftLCA != None:
+        # print "LCAWithoutParent : leftLCA != None : return leftLCA : %s, %s, %s" %(rootNode.data, aNode.data, bNode.data)
+        return leftLCA
+    else: 
+        # print "LCAWithoutParent : leftLCA == None : return rightLCA : %s, %s, %s" %(rootNode.data, aNode.data, bNode.data)
+        return rightLCA
 
 def setup():
     global maxDepth, nodeToDraw, root, count
@@ -237,11 +264,26 @@ def setup():
     print "maxDepth : %s" %(maxDepth)
     print "maxDepthNode.data: %s" %(maxDepthNode.data)
     print "Nodes : %s" %(nodes.keys())
+    
+    root.printTreeInorder()
+    print "inorder : %s" %(inorder)    
+    root.printTreePreorder()
+    print "preorder : %s" %(preorder)
+    root.printTreePostorder()
+    print "postorder : %s" %(postorder)
+    
     # for x in nodes:
         # print "key : %s, node : %s, parent : %s" %(x, nodes[x].data, nodes[x].parent.data)
     # print "Find LCA of %s and %s : %s" %("139", "149", findLowestCommonAncestorWithParent(139, 149))
     # print "Find LCA of %s and %s : %s" %("18", "76", findLowestCommonAncestorWithParent(18, 76))
-    print "Find LCA-with-Parents of %s and %s : %s" %("10", "68", findLowestCommonAncestorWithParent(10, 68))
+    # print "Find LCA-with-Parent of %s and %s : %s" %("10", "68", findLowestCommonAncestorWithParent(10, 68))
+    # print "Find LCA-without-Parent of %s and %s : %s" %("10", "68", findLowestCommonAncestorWithoutParent(root, nodes[10], nodes[68]).data)
+    # print "Find LCA-with-Parent of %s and %s : %s" %("93", "44", findLowestCommonAncestorWithParent(93, 44))
+    # print "Find LCA-without-Parent of %s and %s : %s" %("93", "44", findLowestCommonAncestorWithoutParent(root, nodes[93], nodes[44]).data)
+    print "Find LCA-with-Parent of %s and %s : %s" %("93", "44", findLowestCommonAncestorWithParent(93, 44))
+    print "Find LCA-without-Parent of %s and %s : %s" %("65", "98", findLowestCommonAncestorWithoutParent(root, nodes[65], nodes[98]).data)
+    
+    
 
     
 def draw():
