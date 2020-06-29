@@ -4,7 +4,9 @@ maxDepth = None
 root = None
 count = 0           
 maxDepthNode = None
-
+nodes = {}
+seedValue = 100
+nodeFrequency = 5 #lower is more
 
 class Node:
     def __init__(self, data, parentNode, depth, color):
@@ -21,20 +23,36 @@ class Node:
         print(self.data)
         
     def insert(self, data, parentNode=None, depth=0, color=255):
+        global nodes
         newDepth = self.depth + 1
         if self.data:
+            # print "parentNode : %s" %(parentNode.data)
+            # currentNode = Node(data, self, newDepth, color-20)
             if data < self.data:
                 if self.left == None:
                     self.left = Node(data, self, newDepth, color-20)
+                    # print "leftNode newData : %s, self.data : %s" %(data, self.data)
+                    # adds to nodes dictionary
+                    # nodes[data] = Node(data, self, newDepth, color-20)
+                    # adds to nodes dictionary
+                    nodes[data] = self.left
                 else:
                     self.left.insert(data, self, newDepth, color-20)
+                    # print "left.insert newData : %s, self.data : %s" %(data, self.data)
             elif data > self.data:
                 if self.right == None:
                     self.right = Node(data, self, newDepth, color-20)
+                    # print "rightNode newData : %s, self.data : %s" %(data, self.data)
+                    # adds to nodes dictionary
+                    # nodes[data] = Node(data, self, newDepth, color-20)
+                    nodes[data] = self.right
                 else:
                     self.right.insert(data, self, newDepth, color-20)
+                    # print "right.insert newData : %s, self.data : %s" %(data, self.data)
             else: 
-                print "Node %s already exists" %(self.data)
+                pass
+                # print "Node %s already exists" %(self.data)
+            
         else:
             self.data = data
     
@@ -71,15 +89,21 @@ class Node:
         self.findCoordinates(root)
         rectWidth = 10
         rectHeight = 10
+        
 
-        if self.data == maxDepthNode.data:
+        # if self.data == maxDepthNode.data:
+        if self.depth == maxDepth:
             fill(240, self.color, 20)
         else:        
             fill(34, self.color, 34)
         # pushMatrix()
         # translate(self.x, self.y)
         # rotate(45)
-        rect(self.x, self.y, rectWidth, rectHeight)
+        if self.data != root.data:
+            # textSize(12) #might be default
+            textSize(11)
+            text(self.data, self.x-5, self.y+5)
+            # rect(self.x, self.y, rectWidth, rectHeight)
         # popMatrix()
         # rotate(-45)
         if self.left:
@@ -92,7 +116,25 @@ class Node:
         if self.parent:
             line(self.parent.x, self.parent.y, self.x, self.y)
 
+def createTree(root):
+    randomized = int(random(0, 9999))
+    randomSeed(randomized)
+    # randomSeed(456)
+    # randomSeed(4296)
+    # randomSeed(4747)
+    # randomSeed(1358) #10
+    # randomSeed(7427)
+    # randomSeed(8458)
+    randomSeed(1326)
+    print "randomSeed(%s)" %(randomized)    
     
+    # root.insert(90)
+    # root.insert(70)
+    # for i in range(0, 200, 5):
+    for i in range(0, 2*seedValue, nodeFrequency):
+        # root.insert(i, root)
+        # root.insert(int(random(0, 200)), root)
+        root.insert(int(random(0, 2*seedValue)), root)
     
 
 def findMaxHeightTopToBottom(node, pDepth):    
@@ -122,34 +164,69 @@ def isBalancedBottomToTop(node):
         return -1
     if abs(leftHeight - rightHeight) > 1:
         return -1
-    print "self.data : %s, leftHeight : %s , rightHeight : %s" %(node.data, leftHeight, rightHeight)
+    # print "self.data : %s, leftHeight : %s , rightHeight : %s" %(node.data, leftHeight, rightHeight)
     
     return 1 + max(leftHeight, rightHeight)
     
-
-
-def createTree(root):
-    randomized = int(random(0, 9999))
-    randomSeed(randomized)
-    # randomSeed(456)
-    # randomSeed(4296)
-    # randomSeed(4747)
-    # randomSeed(1358) #10
-    randomSeed(7427)
-    print "randomSeed(%s)" %(randomized)    
+def findLowestCommonAncestorWithParent(nodeAKey, nodeBKey):
+    if (nodeAKey not in nodes) or (nodeBKey not in nodes):
+        return
+    aNode = nodes[nodeAKey]
+    bNode = nodes[nodeBKey]
+    if aNode == None or bNode == None:
+        return -1
     
-    # root.insert(90)
-    # root.insert(70)
-    for i in range(0, 200, 5):
+    aPointer = aNode
+    bPointer = bNode
+    # print "aNode : %s, parent : %s" %(aNode.data, aNode.parent.data)
+    # print "bNode : %s, parent : %s" %(bNode.data, bNode.parent.data)
+    print "aPointer : %s, parent : %s" %(aPointer.data, aPointer.parent.data)
+    print "bPointer : %s, parent : %s" %(bPointer.data, bPointer.parent.data)
+    
+    # find aDepth
+    aDepth = -1
+    while aPointer != None:
+        aDepth += 1
+        aPointer = aPointer.parent
+        # print aPointer.data
         
-        # root.insert(i, root)
-        root.insert(int(random(0, 200)), root)
+    # find bDepth
+    bDepth = -1
+    while bPointer != None:
+        bDepth += 1
+        bPointer = bPointer.parent
+        # print bPointer.data
+        
+    print "aDepth : %s, bDepth : %s" %(aDepth, bDepth)
+    
+    if aDepth > bDepth:
+        x = aNode
+        y = bNode
+    else:
+        x = bNode
+        y = aNode
+    
+    for i in range(0, abs(aDepth - bDepth)):
+        x = x.parent
+    
+    while x != y:
+        x = x.parent
+        y = y.parent
+    
+    return x.data
+    
+def findLowestCommonAncestorWithoutParent(nodeAKey, nodeBKey):
+    nodeA = nodes[nodeAKey]
+    nodeB = nodes[nodeBKey]
+    
+
 
 
 def setup():
     global maxDepth, nodeToDraw, root, count
     size(500, 500)   
-    root = Node(100, None, 0, 255)     
+    # root = Node(100, None, 0, 255)     
+    root = Node(seedValue, None, 0, 255)
     nodeToDraw = root
     createTree(root)
     findMaxHeightTopToBottom(root, -1)
@@ -159,7 +236,14 @@ def setup():
     print "count : %s" %(count)
     print "maxDepth : %s" %(maxDepth)
     print "maxDepthNode.data: %s" %(maxDepthNode.data)
+    print "Nodes : %s" %(nodes.keys())
+    # for x in nodes:
+        # print "key : %s, node : %s, parent : %s" %(x, nodes[x].data, nodes[x].parent.data)
+    # print "Find LCA of %s and %s : %s" %("139", "149", findLowestCommonAncestorWithParent(139, 149))
+    # print "Find LCA of %s and %s : %s" %("18", "76", findLowestCommonAncestorWithParent(18, 76))
+    print "Find LCA-with-Parents of %s and %s : %s" %("10", "68", findLowestCommonAncestorWithParent(10, 68))
 
+    
 def draw():
     background(0)
     nodeToDraw.drawTreePreorder(root)
