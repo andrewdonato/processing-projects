@@ -145,7 +145,8 @@ def createTree(root):
         # root.insert(int(random(0, 200)), root)
         root.insert(int(random(0, 2*seedValue)), root)
     
-
+# Time Complexity:​ O(n) where n is the number of nodes
+# Space Complexity:​ O(h) where h is the height of the tree. Space is used on the recursion stack.
 def findMaxHeightTopToBottom(node, pDepth):    
     global maxDepth, count, maxDepthNode
     if node == None:
@@ -158,11 +159,17 @@ def findMaxHeightTopToBottom(node, pDepth):
     findMaxHeightTopToBottom(node.left, nDepth)
     findMaxHeightTopToBottom(node.right, nDepth)
                                                         
+
+# Time Complexity:​ O(n)
+# Space Complexity:​ O(height) on the recursion stack
 def findMaxHeightBottomToTop(node):
     if node == None:
         return -1
     return max(findMaxHeightBottomToTop(node.left), findMaxHeightBottomToTop(node.right)) + 1
 
+
+# Time Complexity:​ O(n)
+# Space Complexity:​ O(height) on the recursion stack
 def isBalancedBottomToTop(node):
     if node == None:
         return 0
@@ -177,6 +184,9 @@ def isBalancedBottomToTop(node):
     
     return 1 + max(leftHeight, rightHeight)
     
+
+# Time Complexity: O(h)
+# Space Complexity: O(1)    
 def findLowestCommonAncestorWithParent(nodeAKey, nodeBKey):
     if (nodeAKey not in nodes) or (nodeBKey not in nodes):
         return
@@ -225,7 +235,10 @@ def findLowestCommonAncestorWithParent(nodeAKey, nodeBKey):
         y = y.parent
     
     return x.data
-    
+
+
+# Time Complexity:​ O(n)
+# Space Complexity:​ O(h) on recursion stack    
 def findLowestCommonAncestorWithoutParent(rootNode, aNode, bNode):
     if rootNode == None:
         # print "LCAWithoutParent : rootNode == None : return None : %s, %s, %s" %(rootNode, aNode.data, bNode.data)
