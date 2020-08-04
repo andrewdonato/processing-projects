@@ -7,6 +7,8 @@ maxDepthNode = None
 inorder = []
 preorder = []
 postorder = []
+randomRoot = int(random(-40,40))
+# randomRoot = -20
 
 nodes = {}
 seedValue = 100
@@ -91,7 +93,8 @@ class Node:
         
     def findCoordinates(self, root):        
         self.x = width/2 + self.data - root.data
-        self.y = height/(self.depth+1) - 20
+        # self.y = height/(self.depth+1) - 20
+        self.y = height/(self.depth+2) - 20
 
 
     def drawTreePreorder(self, root):
@@ -113,6 +116,10 @@ class Node:
             textSize(11)
             text(self.data, self.x-5, self.y+5)
             # rect(self.x, self.y, rectWidth, rectHeight)
+        else:
+            pass
+            textSize(11)
+            text(self.data, self.x-5, self.y+5)
         # popMatrix()
         # rotate(-45)
         if self.left:
@@ -122,6 +129,9 @@ class Node:
         
         # stroke(205,133,63)
         stroke(139,69,19)
+        if self.parent == None:
+            line(width/2 - randomRoot, height - 40, self.x, self.y)
+        
         if self.parent:
             line(self.parent.x, self.parent.y, self.x, self.y)
 
@@ -134,7 +144,9 @@ def createTree(root):
     # randomSeed(1358) #10
     # randomSeed(7427)
     # randomSeed(8458)
-    randomSeed(1326)
+    # randomSeed(1326)
+    # randomSeed(2447)
+    # randomSeed(2121)
     print "randomSeed(%s)" %(randomized)    
     
     # root.insert(90)
@@ -240,6 +252,13 @@ def findLowestCommonAncestorWithParent(nodeAKey, nodeBKey):
 # Time Complexity:​ O(n)
 # Space Complexity:​ O(h) on recursion stack    
 def findLowestCommonAncestorWithoutParent(rootNode, aNode, bNode):
+    
+    # if (aNode not in nodes) or (bNode not in nodes):
+    #     return
+    
+    # if (aNode != True) or (bNode != True):
+    #     return
+    
     if rootNode == None:
         # print "LCAWithoutParent : rootNode == None : return None : %s, %s, %s" %(rootNode, aNode.data, bNode.data)
         return None
@@ -247,7 +266,7 @@ def findLowestCommonAncestorWithoutParent(rootNode, aNode, bNode):
     if (rootNode == aNode) or (rootNode == bNode):
         # print "LCAWithoutParent : rootNode == aNode or rootNode == bNode : return rootNode : %s, %s, %s" %(rootNode.data, aNode.data, bNode.data)
         return rootNode
-    
+
     leftLCA = findLowestCommonAncestorWithoutParent(rootNode.left, aNode, bNode)
     rightLCA = findLowestCommonAncestorWithoutParent(rootNode.right, aNode, bNode)
     
@@ -294,7 +313,11 @@ def setup():
     # print "Find LCA-with-Parent of %s and %s : %s" %("93", "44", findLowestCommonAncestorWithParent(93, 44))
     # print "Find LCA-without-Parent of %s and %s : %s" %("93", "44", findLowestCommonAncestorWithoutParent(root, nodes[93], nodes[44]).data)
     print "Find LCA-with-Parent of %s and %s : %s" %("93", "44", findLowestCommonAncestorWithParent(93, 44))
-    print "Find LCA-without-Parent of %s and %s : %s" %("65", "98", findLowestCommonAncestorWithoutParent(root, nodes[65], nodes[98]).data)
+    
+    # print "These are the nodes : %s" %nodes
+    
+    if 65 in nodes and 98 in nodes: 
+        print "Find LCA-without-Parent of %s and %s : %s" %("65", "98", findLowestCommonAncestorWithoutParent(root, nodes[65], nodes[98]).data)
     
     
 
