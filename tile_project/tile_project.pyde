@@ -2,10 +2,11 @@ from tiles import *
 
 tileWall = 60
 speed = 2
-drawTile = createTile15
+drawTile = createTile19
 
 def setup():
-    size(1201,601)
+    # size(1201,601)
+    size(701,701)
     background(255)
 
     
